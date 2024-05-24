@@ -40,7 +40,7 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removerCliente(Long id){
+    public void removerCliente(@PathVariable("id") Long id){
         clienteService.buscarPorId(id)
                 .map(cliente -> {
                     clienteService.removerPorId(cliente.getId());
@@ -53,8 +53,7 @@ public class ClienteController {
     public void atualizarCliente(@PathVariable("id") Long id, @RequestBody Cliente cliente){
         clienteService.buscarPorId(id)
                 .map(clienteBase -> {
-                    modelMapper.map(cliente, clienteBase);
-                    clienteService.salvar(clienteBase);
+                    clienteService.salvar(modelMapper.map(cliente, Cliente.class));
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado"));
     }
