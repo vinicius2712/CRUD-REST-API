@@ -51,9 +51,11 @@ public class ClienteController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarCliente(@PathVariable("id") Long id, @RequestBody Cliente cliente){
+        cliente.setId(id);
         clienteService.buscarPorId(id)
                 .map(clienteBase -> {
-                    clienteService.salvar(modelMapper.map(cliente, Cliente.class));
+                    modelMapper.map(cliente, clienteBase);
+                    clienteService.salvar(clienteBase);
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado"));
     }
