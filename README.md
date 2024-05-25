@@ -14,6 +14,7 @@ Java
 Spring Boot
 Spring Data JPA
 Maven
+Banco de Dados H2
 
 Configuração do Ambiente de Desenvolvimento
 Certifique-se de ter o Java JDK e o Maven instalados em sua máquina.
